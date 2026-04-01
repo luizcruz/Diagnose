@@ -257,8 +257,8 @@ run "df -i"
 run "lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,ROTA,TYPE"
 run "iostat -xz 1 3 2>/dev/null || true"
 
-DISK_USE_PCT="$(df / | awk 'NR==2 {gsub(/%/,\"\",$5); print $5}')"
-INODE_USE_PCT="$(df -i / | awk 'NR==2 {gsub(/%/,\"\",$5); print $5}')"
+DISK_USE_PCT="$(df / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
+INODE_USE_PCT="$(df -i / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
 
 if [[ "${DISK_USE_PCT:-0}" -ge 90 ]]; then
   add_finding HIGH "Disco raiz acima de 90%."
